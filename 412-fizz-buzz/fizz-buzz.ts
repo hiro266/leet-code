@@ -2,15 +2,16 @@ function fizzBuzz(n: number): string[] {
   let output: string[] = [];
 
   for (let i = 1; i <= n; i++) {
-    if (i % 5 === 0 && i % 3 === 0) {
-      output.push("FizzBuzz");
-    } else if (i % 3 === 0) {
-      output.push("Fizz");
-    } else if (i % 5 === 0) {
-      output.push("Buzz");
-    } else {
-      output.push(String(i));
-    }
+    const divisibleBy3 = i % 3 === 0;
+    const divisibleBy5 = i % 5 === 0;
+
+    let currentStr = "";
+
+    if (divisibleBy3) currentStr += "Fizz";
+    if (divisibleBy5) currentStr += "Buzz";
+    if (currentStr == "") currentStr += i;
+
+    output.push(currentStr);
   }
   return output
 };
