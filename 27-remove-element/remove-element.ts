@@ -1,14 +1,15 @@
 function removeElement(nums: number[], val: number): number {
-  let removeAmount = 0
+  const expectedNums = [];
 
   for (let i = 0; i < nums.length; i++) {
-    if (nums[i] === val) {
-      nums.splice(nums.indexOf(val),1, undefined)
-      removeAmount++
-    } else {
-      nums[i - removeAmount] = nums[i]
-    }
+    if (nums[i] !== val) expectedNums.push(nums[i]);
   }
-  
-  return nums.length - removeAmount
+
+  nums.splice(0);
+
+  for (let j = 0; j < expectedNums.length; j++) {
+    nums[j] = expectedNums[j];
+  }
+
+  return expectedNums.length;
 };
