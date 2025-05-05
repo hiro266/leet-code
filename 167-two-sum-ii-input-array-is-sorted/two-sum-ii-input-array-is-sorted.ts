@@ -1,15 +1,22 @@
 function twoSum(numbers: number[], target: number): number[] {
-  for (let i = 0; i < numbers.length; i++) {
-    const tmp = numbers[i];
+  let leftPointer = 0;
+  let rightPointer = numbers.length - 1;
 
-    for (let j = i + 1; j < numbers.length; j++) {
-      if (tmp + numbers[j] === target) {
-        numbers.splice(0);
-        numbers[0] = i + 1;
-        numbers[1] = j + 1;
-      }
+  while (leftPointer <= rightPointer) {
+    const leftNum = numbers[leftPointer];
+    const rightNum = numbers[rightPointer];
+    const total = leftNum + rightNum;
+
+    if (total > target) {
+      rightPointer--;
+    } else if (total < target) {
+      leftPointer++;
+    } else {
+      numbers.splice(0);
+      numbers[0] = leftPointer + 1;
+      numbers[1] = rightPointer + 1;
+      return numbers;
     }
   }
-
   return numbers;
 };
