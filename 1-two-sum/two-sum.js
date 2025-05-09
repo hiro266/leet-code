@@ -20,6 +20,4 @@ var twoSum = function (nums, target) {
       rightPointer++;
     }
   }
-
-  return [0, 0];
 };
