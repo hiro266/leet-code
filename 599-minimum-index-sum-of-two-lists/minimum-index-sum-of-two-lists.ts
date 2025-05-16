@@ -1,30 +1,36 @@
-const main = (list1: string[], list2: string[]): string[] => {
-  const map1 = new Map();
+function findRestaurant(list1: string[], list2: string[]): string[] {
 
+   const map: Map<string, number> = new Map();
   for (let i = 0; i < list1.length; i++) {
-    map1.set(list1[i], i);
+    map.set(list1[i], i);
   }
 
-  const map2 = new Map();
+  const filteredItem: Record<string, number> = {};
   for (let j = 0; j < list2.length; j++) {
-    if (map1.has(list2[j])) {
-      map2.set(list2[j], map1.get(list2[j] + j));
+    const idx = map.get(list2[j]);
+    if (map.has(list2[j]) && idx !== undefined) {
+      filteredItem[list2[j]] = idx + j;
     }
   }
 
-  // todo: map2のvalueで最も小さい値のkeyを配列にして返す
+  const result = [];
+  let minIdx = undefined;
+  for (const [_, value] of Object.entries(filteredItem)) {
+    if (minIdx === undefined) {
+      minIdx = value;
+    }
 
-  return list1;
+    if (value < minIdx) {
+      minIdx = value;
+    }
+  }
+
+  for (const [key, value] of Object.entries(filteredItem)) {
+    if (value === minIdx) {
+      result.push(key);
+    }
+  }
+
+  return result;
+    
 };
-
-main(
-  ["Shogun", "Tapioca Express", "Burger King", "KFC"],
-  ["Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"]
-);
-
-main(
-  ["Shogun", "Tapioca Express", "Burger King", "KFC"],
-  ["KFC", "Shogun", "Burger King"]
-);
-
-main(["happy", "sad", "good"], ["sad", "happy", "good"]);
