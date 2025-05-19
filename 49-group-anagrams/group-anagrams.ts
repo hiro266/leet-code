@@ -1,26 +1,22 @@
 function groupAnagrams(strs: string[]): string[][] {
-  const result: string[][] = [];
-  const map: Map<string, number> = new Map();
-  const sortedStrs = strs.map((str) => str.split("").sort().join(""));
+  const map: Map<string, string[]> = new Map();
 
-  let index = 0; // ソート後の文字列をresultのどのインデックスに入れるかを定義
-  for (let i = 0; i < sortedStrs.length; i++) {
-
-    // ソート後の文字列を持っていなければmapに追加
-    if (!map.has(sortedStrs[i])) {
-      map.set(sortedStrs[i], index);
-      index++;
+  for (const str of strs) {
+    const key = str.split("").sort().join("");
+    if (!map.has(key)) {
+      map.set(key, []);
     }
 
-    // resultの各インデックスへ格納
-    const groupIndex = map.get(sortedStrs[i]);
-    if (groupIndex !== undefined) {
-      if (result[groupIndex] === undefined) {
-        result.push([]);
-      }
-      result[groupIndex].push(strs[i]);
+    const getKey = map.get(key);
+    if (getKey !== undefined) {
+      getKey.push(str);
     }
   }
 
-  return result;
+  console.log(map);
+  console.log([map.keys()]);
+  console.log([map.values()]);
+  console.log(Array.from(map.values()));
+
+  return Array.from(map.values());
 };
