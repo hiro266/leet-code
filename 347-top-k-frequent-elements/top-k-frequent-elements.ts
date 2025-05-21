@@ -8,12 +8,10 @@ function topKFrequent(nums: number[], k: number): number[] {
     seen.set(num, 1);
   }
 
-  const sortedSeenMap = Array.from(seen.entries()).sort((a, b) => b[1] - a[1]);
-  const result: number[] = [];
-
-  for (let i = 0; i < k; i++) {
-    result.push(sortedSeenMap[i][0]);
-  }
+  const result: number[] = Array.from(seen.entries())
+    .sort((a, b) => b[1] - a[1]) // 出現回数の多い順でソート
+    .slice(0, k)								 // k個までを抽出
+    .map(([key]) => key);				 // 出現した数字のみを抽出
 
   return result;
 };
