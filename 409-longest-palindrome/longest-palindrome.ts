@@ -19,14 +19,18 @@ function longestPalindrome(s: string): number {
 
   const maxOddValue = Math.max(...oddValues);
 
-  // 奇数の最大値を一つだけ削除
-  oddValues.splice(oddValues.indexOf(maxOddValue), 1);
+  // 最大の奇数値を使ったか？のフラグ
+  let usedMaxOdd = false;
+  const adjustedOddValues = oddValues.map((num) => {
+    if (num === maxOddValue && !usedMaxOdd) {
+      usedMaxOdd = true;
+      return num;
+    }
+    return num - 1;
+  });
 
   const result = evenValues
-    .concat(
-      maxOddValue,
-      oddValues.map((num) => num - 1)
-    )
+    .concat(adjustedOddValues)
     .reduce((acc, current) => acc + current);
 
   return result;
