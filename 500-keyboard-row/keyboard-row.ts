@@ -1,23 +1,20 @@
 function findWords(words: string[]): string[] {
-  const result: string[] = [];
-  const keys = [
-    ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-    ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-    ["z", "x", "c", "v", "b", "n", "m"],
+  const result = [];
+  const rows = [
+    new Set("qwertyuiop"),
+    new Set("asdfghjkl"),
+    new Set("zxcvbnm"),
   ];
 
   for (const word of words) {
-    const targetKeybord = keys
-      .filter((key) => key.includes(word[0].toLowerCase()))
-      .flatMap((target) => target);
+    // 小文字にして文字列から配列に変換
+    const chars = [...word.toLocaleLowerCase()];
 
-    if (
-      word.split("").every((char) => targetKeybord.includes(char.toLowerCase()))
-    ) {
+    // charsが全て含まれているrowが1つでもあればwordを返す
+    if (rows.some((row) => chars.every((char) => row.has(char)))) {
       result.push(word);
     }
   }
 
   return result;
-
 };
