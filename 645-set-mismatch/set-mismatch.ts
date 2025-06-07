@@ -1,15 +1,7 @@
 function findErrorNums(nums: number[]): number[] {
   const result: number[] = [];
-
-  if (nums.length === 2 && nums[0] === nums[1]) {
-    for (let i = 0; i < nums.length; i++) {
-      if (nums[i] !== i + 1) {
-        return [nums[i], i + 1];
-      }
-    }
-  }
-
   const numsCountMap = new Map();
+
   for (const num of nums) {
     if (numsCountMap.has(num)) {
       numsCountMap.set(num, numsCountMap.get(num) + 1);
