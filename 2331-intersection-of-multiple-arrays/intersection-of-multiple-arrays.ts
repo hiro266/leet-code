@@ -1,16 +1,13 @@
 function intersection(nums: number[][]): number[] {
-  const seen = new Map()
+  const result = new Set(nums[0])
 
   for (const list of nums) {
-    for (const num of list) {
-      seen.set(num, (seen.get(num) ?? 0) + 1)
+    const tmpSet = new Set(list)
+
+    for (const num of result) {
+      if (!tmpSet.has(num)) result.delete(num)
     }
   }
 
-  const result = []
-  for (const [key, count] of seen) {
-    if (count === nums.length) result.push(key)
-  }
-
-  return result.sort((a, b) => a - b)
+  return [...result].sort((a, b) => a - b)
 };
